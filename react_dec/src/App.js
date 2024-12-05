@@ -3,6 +3,9 @@ import './App.css';
 import FormComp from './components/FormComp';
 import ListComp from './components/ListComp';
 
+import TodoForm from './components/todo/TodoForm';
+import TodoList from './components/todo/TodoList';
+
 // 2 types of components
 // 1. functional component
 // 2. class component
@@ -13,7 +16,6 @@ The `App` component is the main entry point of the React application. It manages
 
 */
 
-
 export default function App() {
   // state variables
   // use state hook is used to create state variables
@@ -21,7 +23,6 @@ export default function App() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [result, setResult] = useState('');
-
 
   function nameChange(e) {
     setName(e.target.value);
@@ -32,6 +33,18 @@ export default function App() {
   }
   function passwordChange(e) {
     setPassword(e.target.value);
+  }
+
+  const [todo, setTodo] = useState('');
+  const [list, setList] = useState([]);
+
+  function addTodo() {
+    setList([...list, todo]);
+    setTodo('');
+  }
+
+  function writeTodo(e) {
+    setTodo(e.target.value);
   }
 
   return (
@@ -57,6 +70,8 @@ export default function App() {
 
       <h1> {result} </h1>
 
+      <TodoForm addTodo={addTodo} writeTodo={writeTodo} todo={todo} />
+      <TodoList list={list} />
     </div>
   );
 }
