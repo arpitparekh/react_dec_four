@@ -1,4 +1,4 @@
-export default function TodoForm({ addTodo, writeTodo, todo }) {
+export default function TodoForm({ addTodo, writeTodo, todo,status }) {
   return (
     <div>
       <input
@@ -7,7 +7,7 @@ export default function TodoForm({ addTodo, writeTodo, todo }) {
         onChange={writeTodo}
         value={todo}
       />
-      <button onClick={addTodo}>Add</button>
+      <button onClick={addTodo}>{status}</button>
     </div>
   );
 }

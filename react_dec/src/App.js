@@ -23,6 +23,9 @@ export default function App() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [result, setResult] = useState('');
+  const [status, setStatus] = useState('Add');
+
+  let ind = 0
 
   function nameChange(e) {
     setName(e.target.value);
@@ -39,12 +42,37 @@ export default function App() {
   const [list, setList] = useState([]);
 
   function addTodo() {
-    setList([...list, todo]);
-    setTodo('');
+    if (status === 'Add') {
+      setList([...list, todo]);
+      setTodo('');
+    } else {
+      // update
+      list[ind] = todo;
+      setStatus('Add');
+      setTodo('');
+    }
   }
 
   function writeTodo(e) {
     setTodo(e.target.value);
+
+  }
+
+  function  removeClick(index) {
+    // list.splice(index, 1);
+    // setList([...list]);
+    setList(
+      list.filter((item, a) => {
+        if (a !== index) {
+          return item;
+        }
+      })
+    );
+  }
+  function editClick(index) {
+    ind = index;
+    setTodo(list[index]);
+    setStatus('Update');
   }
 
   return (
@@ -70,8 +98,8 @@ export default function App() {
 
       <h1> {result} </h1>
 
-      <TodoForm addTodo={addTodo} writeTodo={writeTodo} todo={todo} />
-      <TodoList list={list} />
+      <TodoForm addTodo={addTodo} writeTodo={writeTodo} todo={todo} status={status}/>
+      <TodoList list={list} removeClick={removeClick} editClick={editClick} />
     </div>
   );
 }
